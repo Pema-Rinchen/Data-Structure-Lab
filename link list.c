@@ -5,6 +5,7 @@ struct Node {
     struct Node* next;
 };
 
+// create a new node 
 struct Node* createNode(int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = data;
@@ -12,6 +13,7 @@ struct Node* createNode(int data) {
     return newNode;
 }
 
+// function to inserte an link 
 void insert(struct Node** head, int data) {
     struct Node* newNode = createNode(data);
     if (*head == NULL) {
@@ -24,7 +26,8 @@ void insert(struct Node** head, int data) {
     }
     current->next = newNode;
 }
-//Display in order
+
+//display in asscending order
 void display(struct Node* head) {
     struct Node* current = head;
     while (current != NULL) {
@@ -33,7 +36,8 @@ void display(struct Node* head) {
     }
     printf("NULL\n");
 }
-//isplay in reverse order
+
+// Display in reverse order
 void displayReverse(struct Node* head) {
     if (head == NULL) {
         return;
@@ -41,6 +45,8 @@ void displayReverse(struct Node* head) {
     displayReverse(head->next);
     printf("%d ", head->data);
 }
+
+//main function
 int main() {
     struct Node* head = NULL;
     insert(&head, 12);
@@ -49,10 +55,10 @@ int main() {
     insert(&head, 40);
     insert(&head, 44);
     insert(&head, 50);
-    printf("Linked List in asscending order: \n");
+    printf("Linked List in asscending order:\n");
     display(head);
-    
-    printf("Linked List in revesre order: \n");
+    printf("\n");
+    printf("Linked List in revesre order:\n");
     displayReverse(head);
     return 0;
 }
