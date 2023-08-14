@@ -1,50 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// Define the structure of a Node
 struct Node {
     int data;
     struct Node* next;
 };
 
-// Function to insert a new node at the end of the linked list
-void append(struct Node** head_ref, int new_data) {
-    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
-    new_node->data = new_data;
-    new_node->next = NULL;
-
-    if (*head_ref == NULL) {
-        *head_ref = new_node;
-        return;
-    }
-
-    struct Node* last = *head_ref;
-    while (last->next != NULL)
-        last = last->next;
-
-    last->next = new_node;
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
 }
 
-// Function to print the linked list
-void printList(struct Node* node) {
-    while (node != NULL) {
-        printf("%d -> ", node->data);
-        node = node->next;
+void insert(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* current = *head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    current->next = newNode;
+}
+//Display in order
+void display(struct Node* head) {
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
     }
     printf("NULL\n");
 }
-
+//isplay in reverse order
+void displayReverse(struct Node* head) {
+    if (head == NULL) {
+        return;
+    }
+    displayReverse(head->next);
+    printf("%d ", head->data);
+}
 int main() {
     struct Node* head = NULL;
-
-    append(&head, 1);
-    append(&head, 2);
-    append(&head, 3);
-    append(&head, 4);
-    append(&head, 5);
-
-    printf("Linked List: ");
-    printList(head);
-
+    insert(&head, 12);
+    insert(&head, 22);
+    insert(&head, 30);
+    insert(&head, 40);
+    insert(&head, 44);
+    insert(&head, 50);
+    printf("Linked List in asscending order: \n");
+    display(head);
+    
+    printf("Linked List in revesre order: \n");
+    displayReverse(head);
     return 0;
 }
